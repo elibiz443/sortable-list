@@ -183,19 +183,21 @@ Update the views as follows(I am using Tailwind CSS):
 ```
 <!-- todos/index.html.erb -->
 
-<div class="p-8 bg-gray-500/[.4] w-[90%] mx-auto h-screen my-10 rounded-3xl">
-  <div class="my-5">
-    <h1 class="text-center p-4 text-lg md:text-3xl font-bold text-slate-800 hover:opacity-75 cursor-pointer">Todo List</h1>
+<div class="p-4 bg-gray-500/[.4] w-[90%] mx-auto h-screen my-5 rounded-3xl">
+  <div class="my-2 flex py-2 px-4">
+    <div class="w-1/2">
+      <h1 class="text-lg md:text-3xl font-bold text-slate-800 hover:opacity-75 cursor-pointer">Todo List</h1>
+    </div>
+    <div class="w-1/2 text-right">
+      <%= link_to new_todo_path, class: 'px-4 py-2 border-2 border-gray-800 text-gray-800 text-md rounded-md hover:opacity-75' do %>
+        Add New Todo
+      <% end %>
+    </div>
   </div>
-  <div class="text-right mb-10">
-    <%= link_to new_todo_path, class: 'px-4 py-2 border-2 border-gray-600 text-grat-600 text-md rounded-md hover:opacity-75' do %>
-      Add New Todo
-    <% end %>
-  </div>
-  <div class="py-6 px-10 bg-gray-400/[.9] rounded-lg h-[70%] overflow-y-auto scroll-my-0.5">
-    <div data-controller="drag" class="mt-5 space-y-4">
+  <div class="py-3 px-10 bg-gray-400/[.9] rounded-lg h-[70%] overflow-y-auto scroll-my-0.5">
+    <div data-controller="drag" class="mt-2 space-y-4">
       <% @todos.each do |todo| %>
-        <div class="bg-gray-600/[.9] text-gray-200 hover:opacity-75 text-center cursor-grab rounded-md w-[60%] mx-auto py-3 shadow-md shadow-slate-500 hover:shadow-none">
+        <div class="bg-gray-600/[.9] text-gray-200 hover:opacity-75 text-center cursor-grab rounded-md w-[40%] mx-auto py-3 shadow-md shadow-slate-500 hover:shadow-none">
           <%= todo.description %>
         </div>
       <% end %>
