@@ -2,6 +2,16 @@
 
 This is a simple application that implements sortable drag and drop functionality and persists the changes, using stimulus in Rails. 
 
+Run on your machine(Run the following):
+```
+git@github.com:elibiz443/sortable-list.git && cd sortable-list && bundle && rails db:create db:migrate db:seed && bin/dev
+```
+
+Then on your browser, go to:
+```
+http://localhost:3000
+```
+
 #### Tools Used:
 
 - [x] Hotwire(Stimulus & Turbo)
@@ -167,6 +177,73 @@ export default class extends Controller {
     console.log(event)
   }
 }
+```
+
+Update the views as follows(I am using Tailwind CSS):
+```
+<!-- todos/index.html.erb -->
+
+<div class="p-8 bg-gray-500/[.4] w-[90%] mx-auto h-screen my-10 rounded-3xl">
+  <div class="my-5">
+    <h1 class="text-center p-4 text-lg md:text-3xl font-bold text-slate-800 hover:opacity-75 cursor-pointer">Todo List</h1>
+  </div>
+  <div class="text-right mb-10">
+    <%= link_to new_todo_path, class: 'px-4 py-2 border-2 border-gray-600 text-grat-600 text-md rounded-md hover:opacity-75' do %>
+      Add New Todo
+    <% end %>
+  </div>
+  <div class="py-6 px-10 bg-gray-400/[.9] rounded-lg h-[70%] overflow-y-auto scroll-my-0.5">
+    <div data-controller="drag" class="mt-5 space-y-4">
+      <% @todos.each do |todo| %>
+        <div class="bg-gray-600/[.9] text-gray-200 hover:opacity-75 text-center cursor-grab rounded-md w-[60%] mx-auto py-3 shadow-md shadow-slate-500 hover:shadow-none">
+          <%= todo.description %>
+        </div>
+      <% end %>
+    </div>
+    <div class="absolute bottom-0 left-2/3 transform -translate-x-1/3 animate-bounce">
+      <i class="fas fa-arrow-down text-gray-100 text-3xl bg-gray-600/[.9] rounded-full w-[2.5rem] h-[2.5rem] text-center py-1"></i>
+    </div>
+  </div>
+</div>
+```
+
+Add inline_svg gem(for images):
+```
+gem 'inline_svg'
+```
+
+```
+<!-- layouts/application.html.erb -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SortableList</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Font -->
+    <link href="https://fonts.cdnfonts.com/css/ubuntu" rel="stylesheet">
+
+    <!-- FAV AND ICONS   -->
+    <%= favicon_link_tag "favicon.png" %>
+  </head>
+
+  <body class="bg-gray-400 max-w-full overflow-x-hidden font-['ubuntu']">
+    <%= render "shared/header" %>
+    <main class="min-h-screen">
+      <%= yield %>
+    </main>
+    <%= render "shared/footer" %>
+  </body>
+</html>
 ```
 
 ###### Happy Coding 🙌
