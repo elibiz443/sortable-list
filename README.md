@@ -141,4 +141,9 @@ In browser, go to:
 http://localhost:3000
 ```
 
+Add SortableJS:
+```
+npm install sortablejs --save
+```
+
 ###### Happy Coding 🙌
