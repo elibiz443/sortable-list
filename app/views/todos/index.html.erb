@@ -15,11 +15,14 @@
         <%= content_tag :div, msg, class: build_alert_classes(type) %>
       <% end %>
     </div>
-    <div data-controller="drag" data-drag-url="/todos/:id/move" class="mt-2 space-y-4">
+    <div data-controller="drag" data-drag-url="/todos/:id/move" class="mt-2 space-y-6">
       <% @todos.order(position: :asc).each do |todo| %>
         <div class="relative bg-gray-600/[.9] text-gray-200 hover:opacity-75 text-center cursor-grab rounded-md w-[40%] mx-auto py-3 shadow-md shadow-slate-500 hover:shadow-none" data-id="<%= todo.id %>">
           <%= todo.description %>
-          <%= button_to '', todo_path(todo), method: :delete, data: {confirm: 'Are you sure?'}, :class => "fa-solid fa-xmark text-xs absolute z-50 top-0 right-0 bg-red-400/[.8] text-gray-200 rounded-full w-[1.4rem] h-[1.4rem] flex items-center justify-center mt-[-0.5rem] mr-[-0.5rem]" %>
+          <%= button_to '', todo_path(todo), method: :delete, data: {confirm: 'Are you sure?'}, :class => "fa-solid fa-xmark text-lg absolute z-50 top-0 right-0 bg-red-400/[.8] text-gray-200 rounded-full w-[2.5rem] h-[2.5rem] flex items-center justify-center mt-[-1rem] mr-[-1rem]" %>
+          <%= link_to(edit_todo_path(todo), class: "flex items-center justify-center absolute z-50 top-0 left-0 bg-green-400/[.8] text-gray-200 rounded-full w-[2.5rem] h-[2.5rem] mt-[-1rem] ml-[-1rem]") do %>
+            <i class="fa-solid fa-file-pen text-lg"></i>
+          <% end %>
         </div>
       <% end %>
     </div>
