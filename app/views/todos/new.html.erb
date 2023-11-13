@@ -1,0 +1,33 @@
+<div class="p-4 bg-gray-500/[.4] w-[90%] mx-auto h-screen my-5 rounded-3xl">
+  <div class="my-2 flex py-2 px-4">
+    <div class="w-1/2">
+      <h1 class="text-lg md:text-3xl font-bold text-slate-800 hover:opacity-75 cursor-pointer">Add New List</h1>
+    </div>
+    <div class="w-1/2 text-right">
+      <%= link_to root_path, class: 'px-4 py-2 border-2 border-gray-800 text-gray-800 text-md rounded-md hover:opacity-75' do %>
+        Go Back
+      <% end %>
+    </div>
+  </div>
+  <div class="py-3 px-10 bg-gray-400/[.9] rounded-lg h-[70%] overflow-y-auto scroll-my-0.5">
+    <div class="mt-2 space-y-4">
+      <%= form_for @todo do |f| %>
+        <div class="my-4">
+          <% flash.each do |type, msg| %>
+            <%= content_tag :div, msg, class: build_alert_classes(type) %>
+          <% end %>
+        </div>
+        <div class="grid grid-cols gap-2">
+          <div class="px-6 py-2">
+            <%= f.text_field :description, class: "py-3 px-4 block w-3/4 md:w-1/2 rounded-md text-lg text-gray-700 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:border-[#1a4266] focus:ring-[#1a4266] bg-gray-300 mx-auto", placeholder: "Add List Description", autocomplete: "off" %>
+          </div>
+          <div class="px-6 py-3 text-center mt-3">
+            <button type="submit" class="py-3 px-8 inline-flex justify-center items-center gap-2 rounded-md border border-gray-300 font-medium bg-[#1a4266] text-[#c2fbff] shadow-sm align-middle hover:opacity-75 transition-all text-sm">
+              Add List!
+            </button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
