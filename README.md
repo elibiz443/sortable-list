@@ -108,5 +108,37 @@ class Todo < ApplicationRecord
 end
 ```
 
+Create Todos controller:
+```
+rails g controller todos index
+```
+
+Edit Route file as follows:
+```
+Rails.application.routes.draw do
+  resources :todos
+
+  root "todos#index"
+end
+```
+
+Edit Seed file as follows:
+```
+descriptions = ["Task 1", "Task 2", "Task 3", "Task 4", "Task 5", "Task 6"]
+
+descriptions.each do |description|
+  Todo.create(description: description)
+end
+```
+
+Stop Server(CTRL + C), create, migrate & seed DB and rerun the server:
+```
+rails db:create db:migrate db:seed && bin/dev
+```
+
+In browser, go to:
+```
+http://localhost:3000
+```
 
 ###### Happy Coding 🙌
