@@ -17,8 +17,9 @@
     </div>
     <div data-controller="drag" data-drag-url="/todos/:id/move" class="mt-2 space-y-4">
       <% @todos.order(position: :asc).each do |todo| %>
-        <div class="bg-gray-600/[.9] text-gray-200 hover:opacity-75 text-center cursor-grab rounded-md w-[40%] mx-auto py-3 shadow-md shadow-slate-500 hover:shadow-none" data-id="<%= todo.id %>">
+        <div class="relative bg-gray-600/[.9] text-gray-200 hover:opacity-75 text-center cursor-grab rounded-md w-[40%] mx-auto py-3 shadow-md shadow-slate-500 hover:shadow-none" data-id="<%= todo.id %>">
           <%= todo.description %>
+          <%= button_to '', todo_path(todo), method: :delete, data: {confirm: 'Are you sure?'}, :class => "fa-solid fa-xmark text-xs absolute z-50 top-0 right-0 bg-red-400/[.8] text-gray-200 rounded-full w-[1.4rem] h-[1.4rem] flex items-center justify-center mt-[-0.5rem] mr-[-0.5rem]" %>
         </div>
       <% end %>
     </div>

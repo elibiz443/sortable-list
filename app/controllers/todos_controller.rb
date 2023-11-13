@@ -17,7 +17,7 @@ class TodosController < ApplicationController
     @todo = Todo.new(todo_params)
     
     if @todo.save
-      flash[:notice] = "Todo Created!"
+      flash[:notice] = "List Created!"
       redirect_to '/'
     else
       if (@todo.errors.full_messages).uniq! == nil
@@ -32,13 +32,13 @@ class TodosController < ApplicationController
 
   def update
     @todo.update(todo_params)
-    flash[:success] =  'Todo Updated Successfully!'
+    flash[:success] =  'List Updated Successfully!'
     redirect_to '/'
   end
 
   def destroy
     @todo.destroy
-    flash[:success] =  'Todo Deleted!'
+    flash[:success] =  'List Deleted!'
     redirect_to '/'
   end
 
