@@ -34,5 +34,6 @@ group :development do
 end
 
 gem "simple_form", "~> 5.1.0"
-
 gem "acts_as_list", "~> 1.1"
+gem 'inline_svg'
+gem 'dynamic_footer'
