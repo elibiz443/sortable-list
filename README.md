@@ -88,4 +88,25 @@ bundle && bin/rails generate simple_form:install
 ```
 The role of the simple_form gem is to make forms easy to work with. It also helps keep the form designs consistent across the application by making sure we always use the same CSS classes.
 
+Generate Todo Model:
+```
+rails g model Todo description position:integer
+```
+
+Add, acts_as_list gem:
+```
+bundle add acts_as_list
+```
+
+Edid Todo model as follows:
+```
+class Todo < ApplicationRecord
+  acts_as_list
+  validates :description, presence: true
+
+  default_scope {order('todos.created_at ASC')}
+end
+```
+
+
 ###### Happy Coding 🙌
