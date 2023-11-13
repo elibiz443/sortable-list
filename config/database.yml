@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # username: *****
+  # password: *****
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: sortable_list_development
+
+test:
+  <<: *default
+  database: sortable_list_test
+
+production:
+  <<: *default
+  database: sortable_list_production
+  username: sortable_list
+  password: <%= ENV["SORTABLE_LIST_DATABASE_PASSWORD"] %>
