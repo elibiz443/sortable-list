@@ -1,5 +1,5 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: [:show, :edit, :update, :destroy]
+  before_action :set_todo, only: [:show, :edit, :update, :destroy, :move]
 
   def index
     @todos = Todo.all
@@ -40,6 +40,11 @@ class TodosController < ApplicationController
     @todo.destroy
     flash[:success] =  'Todo Deleted!'
     redirect_to '/'
+  end
+
+  def move
+    @todo.insert_at(params[:position].to_i)
+    head :ok
   end
 
   private

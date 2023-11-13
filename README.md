@@ -108,13 +108,11 @@ Add, acts_as_list gem:
 bundle add acts_as_list
 ```
 
-Edid Todo model as follows:
+Edit Todo model as follows:
 ```
 class Todo < ApplicationRecord
   acts_as_list
   validates :description, presence: true
-
-  default_scope {order('todos.created_at ASC')}
 end
 ```
 
@@ -126,7 +124,11 @@ rails g controller todos index
 Edit Route file as follows:
 ```
 Rails.application.routes.draw do
-  resources :todos
+  resources :todos do
+    member do
+      patch :move
+    end
+  end
 
   root "todos#index"
 end
@@ -174,7 +176,18 @@ export default class extends Controller {
   }
 
   end(event) {
-    console.log(event)
+    const id = event.item.dataset.id;
+    const data = new FormData();
+    data.append("position", event.newIndex + 1);
+
+    fetch(this.data.get("url").replace(":id", id), {
+      method: 'PATCH',
+      headers: {
+        'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(Object.fromEntries(data)),
+    });
   }
 }
 ```
@@ -195,9 +208,9 @@ Update the views as follows(I am using Tailwind CSS):
     </div>
   </div>
   <div class="py-3 px-10 bg-gray-400/[.9] rounded-lg h-[70%] overflow-y-auto scroll-my-0.5">
-    <div data-controller="drag" class="mt-2 space-y-4">
-      <% @todos.each do |todo| %>
-        <div class="bg-gray-600/[.9] text-gray-200 hover:opacity-75 text-center cursor-grab rounded-md w-[40%] mx-auto py-3 shadow-md shadow-slate-500 hover:shadow-none">
+    <div data-controller="drag" data-drag-url="/todos/:id/move" class="mt-2 space-y-4">
+      <% @todos.order(position: :asc).each do |todo| %>
+        <div class="bg-gray-600/[.9] text-gray-200 hover:opacity-75 text-center cursor-grab rounded-md w-[40%] mx-auto py-3 shadow-md shadow-slate-500 hover:shadow-none" data-id="<%= todo.id %>">
           <%= todo.description %>
         </div>
       <% end %>
@@ -246,6 +259,74 @@ gem 'inline_svg'
     <%= render "shared/footer" %>
   </body>
 </html>
+```
+
+Create controller:
+```
+rails g controller todos index
+```
+
+Edit controller as follows:
+```
+class TodosController < ApplicationController
+  before_action :set_todo, only: [:show, :edit, :update, :destroy, :move]
+
+  def index
+    @todos = Todo.all
+  end
+
+  def show; end
+
+  def new
+    @todo = Todo.new
+  end
+
+  def edit; end
+
+  def create
+    @todo = Todo.new(todo_params)
+    
+    if @todo.save
+      flash[:notice] = "Todo Created!"
+      redirect_to '/'
+    else
+      if (@todo.errors.full_messages).uniq! == nil
+        error = @todo.errors.full_messages
+      else
+        error = (@todo.errors.full_messages).uniq!
+      end
+      flash[:alert] = error.join(', ')
+      redirect_to '/'
+    end
+  end
+
+  def update
+    @todo.update(todo_params)
+    flash[:success] =  'Todo Updated Successfully!'
+    redirect_to '/'
+  end
+
+  def destroy
+    @todo.destroy
+    flash[:success] =  'Todo Deleted!'
+    redirect_to '/'
+  end
+
+  def move
+    @todo.insert_at(params[:position].to_i)
+    head :ok
+  end
+
+  private
+
+  def set_todo
+    @todo = Todo.find(params[:id])
+  end
+
+  def todo_params
+    params.require(:todo).permit(:description, :position)
+  end
+end
 ```
 
 ###### Happy Coding 🙌

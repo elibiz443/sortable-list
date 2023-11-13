@@ -10,9 +10,9 @@
     </div>
   </div>
   <div class="py-3 px-10 bg-gray-400/[.9] rounded-lg h-[70%] overflow-y-auto scroll-my-0.5">
-    <div data-controller="drag" class="mt-2 space-y-4">
-      <% @todos.each do |todo| %>
-        <div class="bg-gray-600/[.9] text-gray-200 hover:opacity-75 text-center cursor-grab rounded-md w-[40%] mx-auto py-3 shadow-md shadow-slate-500 hover:shadow-none">
+    <div data-controller="drag" data-drag-url="/todos/:id/move" class="mt-2 space-y-4">
+      <% @todos.order(position: :asc).each do |todo| %>
+        <div class="bg-gray-600/[.9] text-gray-200 hover:opacity-75 text-center cursor-grab rounded-md w-[40%] mx-auto py-3 shadow-md shadow-slate-500 hover:shadow-none" data-id="<%= todo.id %>">
           <%= todo.description %>
         </div>
       <% end %>
