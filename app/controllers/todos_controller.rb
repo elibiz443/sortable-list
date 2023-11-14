@@ -54,6 +54,6 @@ class TodosController < ApplicationController
   end
 
   def todo_params
-    params.require(:todo).permit(:description, :position)
+    params.require(:todo).permit(:title, :description, :position)
   end
 end

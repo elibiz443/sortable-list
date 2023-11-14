@@ -15,7 +15,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_13_111703) do
   enable_extension "plpgsql"
 
   create_table "todos", force: :cascade do |t|
-    t.string "description"
+    t.string "title"
+    t.text "description"
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
