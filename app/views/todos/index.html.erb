@@ -17,16 +17,28 @@
     </div>
     <div data-controller="drag" data-drag-url="/todos/:id/move" class="mt-2 space-y-6">
       <% @todos.order(position: :asc).each do |todo| %>
+<<<<<<< HEAD
         <div class="relative bg-gray-600/[.9] hover:opacity-75 text-center rounded-md w-[40%] mx-auto shadow-md shadow-slate-500 hover:shadow-none pt-2" data-id="<%= todo.id %>">
           <div data-controller="modal">
+=======
+        <div data-controller="modal">
+          <div class="relative bg-gray-600/[.9] hover:opacity-75 text-center rounded-md w-[40%] mx-auto shadow-md shadow-slate-500 hover:shadow-none pt-2" data-id="<%= todo.id %>">
+>>>>>>> 2350319f0adad3f7fa4f65cb62081682b3c1e4bf
             <div class="card-button grid grid-cols-3 gap-2 w-[4rem] text-[0.6rem] text-[#731F1E] ml-4">
               <%= button_to(todo_path(todo), method: :delete, data: {confirm: 'Are you sure?'}, class: "bg-[#FF605C]/[.8] rounded-full w-[1rem] h-[1rem] flex items-center justify-center") do %>
                 <i class="icon fa-solid fa-xmark"></i>
               <% end %>
+<<<<<<< HEAD
               <%= button_to(edit_todo_path(todo), class: "bg-[#FFBD44]/[.8] rounded-full w-[1rem] h-[1rem] flex items-center justify-center") do %>
                 <i class="icon fa-solid fa-wand-magic-sparkles"></i>
               <% end %>
               <%= button_to('', data: { action: 'click->modal#open' }, class: "bg-[#00CA4E]/[.8] rounded-full w-[1rem] h-[1rem] flex items-center justify-center") do %>
+=======
+              <%= link_to(edit_todo_path(todo), class: "bg-[#FFBD44]/[.8] rounded-full w-[1rem] h-[1rem] flex items-center justify-center") do %>
+                <i class="icon fa-solid fa-wand-magic-sparkles"></i>
+              <% end %>
+              <%= link_to('', data: { action: 'click->modal#open' }, class: "bg-[#00CA4E]/[.8] rounded-full w-[1rem] h-[1rem] flex items-center justify-center") do %>
+>>>>>>> 2350319f0adad3f7fa4f65cb62081682b3c1e4bf
                 <i class="icon fa-solid fa-up-right-and-down-left-from-center"></i>
               <% end %>
             </div>
@@ -34,6 +46,7 @@
               <h4 class="text-gray-200 text-md"><%= todo.title %></h4>
               <p class="text-gray-300 text-xs"><%= todo.description %></p>
             </div>
+<<<<<<< HEAD
             <!-- Modal Section -->
             <dialog data-modal-target="modal" class="backdrop:bg-gray-900 backdrop:bg-opacity-60 open:animate-fade-in open:backdrop:animate-fade-in w-[80%] md:w-[60%] h-[20rem] p-5 bg-transparent">
               <!-- Card -->
@@ -56,7 +69,32 @@
               <!-- End Card -->
             </dialog>
             <!-- End Of Modal Section -->
+=======
+>>>>>>> 2350319f0adad3f7fa4f65cb62081682b3c1e4bf
           </div>
+          <!-- Modal Section -->
+          <dialog data-modal-target="modal" class="backdrop:bg-gray-900 backdrop:bg-opacity-60 open:animate-fade-in open:backdrop:animate-fade-in w-[80%] h-[20rem] md:w-[60%] mx-auto p-5 bg-transparent">
+            <!-- Card -->
+            <div class="relative w-full h-full bg-gray-200 shadow-lg rounded-lg p-5">
+              <button type="button" data-action="modal#close" class="fa-solid fa-xmark text-xs absolute z-50 top-0 right-0 bg-red-500/[.9] text-gray-200 rounded-full w-[1.6rem] h-[1.6rem] flex items-center justify-center mt-[-0.5rem] mr-[-0.5rem]"></button>
+
+              <div class="grid grid-cols-2 gap-4 h-full">
+                <div class="flex items-center justify-center">
+                  <div class="inline-flex justify-center items-center w-[8rem] h-[8rem] rounded-full border-4 border-blue-50 bg-blue-100">
+                    <i class="fa-solid fa-list-check text-3xl"></i>
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <div>
+                    <h3 class="block text-lg font-semibold text-gray-600 mb-4"><%= todo.title %></h3>
+                    <p class="text-gray-400 text-md"><%= todo.description %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Card -->
+          </dialog>
+          <!-- End Of Modal Section -->
         </div>
       <% end %>
     </div>
