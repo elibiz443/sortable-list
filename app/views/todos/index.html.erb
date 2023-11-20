@@ -1,7 +1,7 @@
 <div data-controller="folder">
   <div class="relative overflow-y-auto scroll-my-0.5 bg-gray-500/[.4] w-[95%] mx-auto h-screen my-5 rounded-xl border border-[#ccc]" data-target="folder.container">
-    <div class="bg-gray-600/[.7] p-5 rounded-t-xl" data-target="folder.header">
-      <div class="inline-block">
+    <div class="bg-gray-600/[.7] p-5 rounded-t-xl flex" data-target="folder.header">
+      <div class="inline-block hidden md:block">
         <div class="grid grid-cols-2 border border-gray-200 font-medium italic text-sm md:text-md rounded-xl">
           <div class="border-r-2 border-gray-200 px-4 py-2 text-gray-600/[.7] bg-gray-200 rounded-l-lg rounded-tr-xl hover:opacity-75" role="button" onclick="location.href='/'">
             SortableList
@@ -10,6 +10,24 @@
             Add List
           </div>
         </div>
+      </div>
+      <div class="md:hidden hs-dropdown [--strategy:static] [--adaptive:none]">
+        <button class="px-4 py-2 text-gray-600/[.7] bg-gray-200 rounded-full text-[1.2rem] hover:opacity-75">
+          <i class="fa-solid fa-caret-down"></i>
+        </button>
+        <div class="hidden hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 z-10 bg-gray-200 rounded-lg p-2 absolute mt-1">
+          <button class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm font-medium  italic text-gray-500 hover:bg-gray-300 w-full" onclick="location.href='/'">
+            SortableList
+          </button>
+          <button class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm font-medium italic text-gray-500 hover:bg-gray-300 w-full" onclick="location.href='/todos/new'">
+            Add List
+          </button>
+        </div>
+      </div>
+      <div class="absolute left-1/2 transform -translate-x-1/2">
+        <button class="hover:opacity-75">
+          <%= image_tag "grid-4.png", class: "w-[2.4rem] h-auto" %>
+        </button>
       </div>
     </div>
     <div data-controller="drag" data-drag-url="/todos/:id/move">
