@@ -15,7 +15,7 @@
     <div data-controller="drag" data-drag-url="/todos/:id/move">
       <% @todos.order(position: :asc).each do |todo| %>
         <!-- Card -->
-        <div class="card bg-gray-500/[.8] p-4 ease-out duration-400 my-5 w-[40%] mx-auto rounded-md hover:opacity-75 shadow-md shadow-gray-800 hover:shadow-none" data-target="folder.card" data-id="<%= todo.id %>">
+        <div class="cursor-pointer card bg-gray-500/[.8] p-4 ease-out duration-400 my-5 w-[40%] mx-auto rounded-md hover:opacity-75 shadow-md shadow-gray-800 hover:shadow-none" data-target="folder.card" data-id="<%= todo.id %>">
           <div data-controller="modal">
             <!-- List -->
             <div class="icon-folder flex items-center justify-center"></div>
