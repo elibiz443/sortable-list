@@ -18,6 +18,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_13_111703) do
     t.string "title"
     t.text "description"
     t.integer "position"
+    t.boolean "minimized", default: false
+    t.boolean "visibility", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
