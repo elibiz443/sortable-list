@@ -27,7 +27,7 @@
 }
 
 .card.minimized .icon-folder::before {
-  content: "\f15b";
+  content: "\f07b";
   font-family: "Font Awesome 6 Free";
   font-size: 1.2rem;
   margin-top: -0.9rem;

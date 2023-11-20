@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["modal", "form"]
+  static targets = ["modal"]
 
   open(event) {
     event.preventDefault();
@@ -12,7 +12,6 @@ export default class extends Controller {
   close(event) {
     event.preventDefault();
     this.modalTarget.close();
-    this.formTarget.reset();
   }
 
   backdropClick(event) {
