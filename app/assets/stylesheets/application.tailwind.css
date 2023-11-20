@@ -10,3 +10,26 @@
 .card-button:hover .icon {
   opacity: 1;
 }
+
+.card.minimized {
+  position: absolute;
+  z-index: 2;
+  overflow: hidden;
+  width: 2rem;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  margin-top: -0.05rem;
+  margin-right: 0.5rem;
+}
+
+.card.minimized .content {
+  display: none;
+}
+
+.card.minimized .icon-folder::before {
+  content: "\f15b";
+  font-family: "Font Awesome 6 Free";
+  font-size: 1.2rem;
+  margin-top: -0.9rem;
+  color: #fff;
+}

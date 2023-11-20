@@ -7,8 +7,8 @@ import { application } from "./application"
 import DragController from "./drag_controller"
 application.register("drag", DragController)
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import FolderController from "./folder_controller"
+application.register("folder", FolderController)
 
 import ModalController from "./modal_controller"
 application.register("modal", ModalController)
