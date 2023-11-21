@@ -33,3 +33,24 @@
   margin-top: -0.9rem;
   color: #fff;
 }
+
+.card.minimized2 {
+  position: absolute;
+  z-index: 999;
+  overflow: hidden;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  margin-top: -0.05rem;
+  margin-right: 0.5rem;
+  top: 1.3rem;
+  right: 1.4rem;
+}
+
+.card.minimized2 .icon-folder2::before {
+  content: "\f07b";
+  font-family: "Font Awesome 6 Free";
+  font-size: 1.2rem;
+  color: #fff;
+}

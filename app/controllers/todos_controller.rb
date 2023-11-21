@@ -32,8 +32,7 @@ class TodosController < ApplicationController
 
   def update
     @todo.update(todo_params)
-    flash[:success] =  'List Updated Successfully!'
-    redirect_to '/'
+    head :ok
   end
 
   def destroy
