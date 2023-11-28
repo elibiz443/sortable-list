@@ -40,8 +40,7 @@
               <!-- Icon Blocks -->
               <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 text-center gap-10">
-                  <% @todos = Todo.where(visibility: false) %>
-                  <%= render @todos %>
+                  <%= render @hidden_todos %>
                 </div>
               </div>
               <!-- End Icon Blocks -->
@@ -54,7 +53,6 @@
     </div>
     <div id="todos">
       <div data-controller="drag cards page" data-drag-url="/todos/:id/move">
-        <% @todos = Todo.where(visibility: true) %>
         <%= render @todos %>
       </div>
     </div>

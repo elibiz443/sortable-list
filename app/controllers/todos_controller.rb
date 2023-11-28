@@ -2,7 +2,8 @@ class TodosController < ApplicationController
   before_action :set_todo, only: [:show, :edit, :update, :destroy, :move]
 
   def index
-    # @todos = Todo.where(visibility: true)
+    @todos = Todo.where(visibility: true)
+    @hidden_todos = Todo.where(visibility: false)
   end
 
   def show; end
