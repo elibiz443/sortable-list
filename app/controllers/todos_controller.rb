@@ -2,7 +2,7 @@ class TodosController < ApplicationController
   before_action :set_todo, only: [:show, :edit, :update, :destroy, :move]
 
   def index
-    @todos = Todo.all
+    # @todos = Todo.where(visibility: true)
   end
 
   def show; end
@@ -15,30 +15,35 @@ class TodosController < ApplicationController
 
   def create
     @todo = Todo.new(todo_params)
-    
-    if @todo.save
-      flash[:notice] = "List Created!"
-      redirect_to '/'
-    else
-      if (@todo.errors.full_messages).uniq! == nil
-        error = @todo.errors.full_messages
+
+    respond_to do |format|
+      if @todo.save
+        format.turbo_stream
+        format.html { redirect_to todo_url(@todo), notice: "Todo was successfully created." }
       else
-        error = (@todo.errors.full_messages).uniq!
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@todo)}_form", partial: "form", locals: { todo: @todo }) }
+        format.html { render :new, status: :unprocessable_entity }
       end
-      flash[:alert] = error.join(', ')
-      redirect_to '/'
     end
   end
 
   def update
-    @todo.update(todo_params)
-    head :ok
+    respond_to do |format|
+      if @todo.update(todo_params)
+        format.html { redirect_to root_path }
+      else
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@todo)}_form", partial: "form", locals: { todo: @todo }) }
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
     @todo.destroy
-    flash[:success] =  'List Deleted!'
-    redirect_to '/'
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove("#{helpers.dom_id(@todo)}_item") }
+      format.html { redirect_to todos_url, notice: "Todo was successfully destroyed." }
+    end
   end
 
   def move

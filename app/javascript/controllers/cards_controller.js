@@ -14,7 +14,7 @@ export default class extends Controller {
 
   applyMargins() {
     this.cardTargets.forEach((card, index) => {
-      card.style.transition = "margin-right 0.3s ease"; // Transition added
+      card.style.transition = "margin-right 0.3s ease"; 
       card.style.marginRight = `${this.marginIncrement * (index + 1)}rem`;
     });
   }
