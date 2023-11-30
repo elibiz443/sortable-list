@@ -13,8 +13,14 @@ application.register("cards", CardsController)
 import DragController from "./drag_controller"
 application.register("drag", DragController)
 
+import DropdownController from "./dropdown_controller"
+application.register("dropdown", DropdownController)
+
 import FolderController from "./folder_controller"
 application.register("folder", FolderController)
 
 import ModalController from "./modal_controller"
 application.register("modal", ModalController)
+
+import PromptController from "./prompt_controller"
+application.register("prompt", PromptController)

@@ -42,25 +42,74 @@
         </div>
         <!-- End Of List -->
         <!-- Modal Section -->
-        <dialog data-modal-target="modal" class="backdrop:bg-gray-900 backdrop:bg-opacity-60 open:animate-fade-in open:backdrop:animate-fade-in w-[80%] md:w-[60%] h-[20rem] p-5 bg-transparent">
+        <dialog data-modal-target="modal" class="backdrop:bg-gray-900 backdrop:bg-opacity-60 open:animate-fade-in open:backdrop:animate-fade-in w-[90%] md:w-[80%] h-[24rem] p-4 bg-transparent">
           <!-- Card -->
           <div class="relative w-full h-full bg-gray-200 shadow-lg rounded-lg p-5">
             <button type="button" data-action="modal#close" class="fa-solid fa-xmark text-xs absolute z-50 top-0 right-0 bg-red-500/[.9] text-gray-200 rounded-full w-[1.6rem] h-[1.6rem] flex items-center justify-center mt-[-0.5rem] mr-[-0.5rem]"></button>
-            <div class="grid grid-cols-2 gap-4 h-full">
+            <div class="grid grid-cols-4 h-full">
               <div class="flex items-center justify-center">
-                <div class="inline-flex justify-center items-center w-[8rem] h-[8rem] rounded-full border-4 border-blue-50 bg-blue-100">
-                  <i class="fa-solid fa-list-check text-3xl"></i>
-                </div>
+                <div class="inline-flex justify-center items-center w-[4rem] h-[4rem] md:w-[8rem] md:h-[8rem] rounded-full border-4 border-blue-50 bg-blue-100">
+                  <i class="fa-solid fa-list-check text-md md:text-3xl"></i>
+                </div> 
               </div>
-              <div class="flex items-center">
-                <div>
-                  <h3 class="block text-lg font-semibold text-gray-600 mb-4"><%= todo.title %></h3>
-                  <p class="text-gray-400 text-md"><%= todo.description %></p>
-                  <div class="flex gap-4 mt-10">
-                    <%= link_to 'Edit', edit_todo_path(todo), class: "bg-green-50 px-4 py-2 rounded inline-flex items-center justify-center text-green-600" %>
-                    <%= button_to "Delete", todo_path(todo), method: :delete, class: "bg-red-50 px-3 py-2 rounded inline-flex items-center justify-center text-red-600" %> 
+              <div class="col-span-3 flex items-center" data-controller="prompt">
+                <%= turbo_frame_tag dom_id(todo) do %>
+                  <div class="p-4">
+                    <div class="grid grid-cols gap-2 mb-5">
+                      <% if notice.present? %>
+                        <p class="py-2 px-3 bg-green-50 text-green-500 font-medium rounded-lg inline-block" id="notice">
+                          <%= notice %>    
+                        </p>
+                      <% elsif alert.present? %>
+                        <p class="py-2 px-3 bg-red-50 text-red-400 font-medium rounded-lg inline-block" id="warning">
+                          <%= alert %>    
+                        </p>
+                      <% end %>
+                    </div>
+                    <div class="mb-4">
+                      <h3 class="block text-lg font-semibold text-gray-600 mb-4"><%= todo.title %></h3>
+                      <p class="text-gray-400 text-md"><%= todo.description %></p>
+                    </div>
+                    <div class="relative inline-block text-left mt-4" data-controller="dropdown">
+                      <div>
+                        <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2" data-action="click->dropdown#toggle">
+                          Options
+                          <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M10 12.586L16.293 6.293a1 1 0 011.414 1.414l-7 7a1 1 0 01-1.414 0l-7-7a1 1 0 111.414-1.414L10 12.586z" clip-rule="evenodd" />
+                          </svg>
+                        </button>
+                      </div>
+                      <div class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 hidden"
+                        data-dropdown-target="panel">
+                        <div class="py-1">
+                          <%= link_to 'Edit', edit_todo_path(todo), class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+                          <%= button_to('', data: { action: 'click->prompt#open' }, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left") do %>
+                            Delete
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                <% end %>
+                <!--  Prompt modal -->
+                <dialog data-prompt-target="prompt" class="backdrop:bg-gray-900 backdrop:bg-opacity-60 open:animate-fade-in open:backdrop:animate-fade-in w-[25rem] h-[15rem] p-4 bg-transparent">
+                  <!-- Section -->
+                  <div class="relative w-full h-full bg-gray-200 shadow-lg shadow-slate-500 rounded-md p-10 text-center">
+                    <p class="text-md font-medium text-gray-700 mt-2">Are You sure you want to delete the todo?</p>
+                    <div class="grid grid-cols-2 gap-2 mt-6">
+                      <div>
+                        <button class="px-4 py-2 text-sm bg-green-50 text-green-400 hover:opacity-75" data-action="prompt#close">
+                          Cancel
+                        </button>
+                      </div>
+                      <div>
+                        <%= button_to "Delete", todo_path(todo), method: :delete, class: "px-4 py-2 text-sm bg-red-50 text-red-400 hover:opacity-75" %>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End of section -->
+                </dialog>
+                <!--  End of prompt modal -->
               </div>
             </div>
           </div>

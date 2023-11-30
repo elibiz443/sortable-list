@@ -6,7 +6,7 @@ export default class extends Controller {
   open(event) {
     event.preventDefault();
     this.modalTarget.showModal();
-    this.modalTarget.addEventListener('click', (e) =>  this.backdropClick(e));
+    this.modalTarget.addEventListener("click", (e) => this.backdropClick(e));
   }
 
   close(event) {
@@ -15,6 +15,6 @@ export default class extends Controller {
   }
 
   backdropClick(event) {
-    event.target === this.modalTarget && this.close(event)
+    event.target === this.modalTarget && this.close(event);
   }
 }
